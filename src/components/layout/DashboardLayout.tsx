@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
-import Sidebar from "./Sidebar";
+import BottomNav from "./BottomNav";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 overflow-auto">
+    <div className="min-h-screen bg-background pb-24">
+      <main className="max-w-6xl mx-auto px-4 py-4">
         {children}
       </main>
+      <BottomNav />
     </div>
   );
 };
