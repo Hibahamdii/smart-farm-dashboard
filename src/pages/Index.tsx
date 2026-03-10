@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Search, X, MapPin, Droplets, Wind, Gauge, Sun, Cloud, CloudRain, CloudSun, Eye, ThermometerSun } from "lucide-react";
+import { Search, X, MapPin, Droplets, Wind, Gauge, Sun, Cloud, CloudRain, CloudSun, Eye, ThermometerSun, Sprout } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 import parcelle1 from "@/assets/parcelle-1.jpg";
 import parcelle2 from "@/assets/parcelle-2.jpg";
