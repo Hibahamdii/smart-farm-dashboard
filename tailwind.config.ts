@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        data: ["Space Grotesk", "sans-serif"],
+        data: ["Plus Jakarta Sans", "sans-serif"],
         ui: ["Inter", "sans-serif"],
       },
       colors: {
@@ -72,11 +72,8 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "var(--radius)",
-        sm: "var(--radius)",
-      },
-      borderWidth: {
-        grid: "2px",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
       },
       keyframes: {
         "accordion-down": {
