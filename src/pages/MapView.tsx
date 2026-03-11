@@ -22,8 +22,11 @@ const MapView = () => {
   useEffect(() => {
     if (!mapRef.current || mapInstance.current) return;
 
-    const map = L.map(mapRef.current).setView([36.725, 3.05], 14);
+    const map = L.map(mapRef.current, { zoomControl: true }).setView([36.725, 3.05], 14);
     mapInstance.current = map;
+
+    // Force map to recalculate size after render
+    setTimeout(() => map.invalidateSize(), 100);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
