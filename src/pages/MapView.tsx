@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { Droplets, Thermometer, ArrowRight } from "lucide-react";
+import { Droplets, Thermometer, ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const parcelles = [
@@ -15,61 +15,105 @@ const parcelles = [
 
 const MapView = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<L.Map | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
   const selectedParcelle = parcelles.find((p) => p.id === selected);
 
-  useEffect(() => {
-    if (!mapRef.current || mapInstance.current) return;
+  const initMap = useCallback((node: HTMLDivElement | null) => {
+    if (!node || mapInstanceRef.current) return;
+    mapContainerRef.current = node;
 
-    const map = L.map(mapRef.current, { zoomControl: true }).setView([36.725, 3.05], 14);
-    mapInstance.current = map;
+    // Small delay to ensure DOM is ready
+    requestAnimationFrame(() => {
+      if (mapInstanceRef.current) return;
 
-    // Force map to recalculate size after render
-    setTimeout(() => map.invalidateSize(), 100);
+      const map = L.map(node, {
+        center: [36.725, 3.05],
+        zoom: 14,
+        zoomControl: true,
+        scrollWheelZoom: true,
+      });
+      mapInstanceRef.current = map;
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }).addTo(map);
 
-    parcelles.forEach((p) => {
-      const icon = L.icon({
-        iconUrl: p.humidity < 50
-          ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"
-          : "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
+      parcelles.forEach((p) => {
+        const isLow = p.humidity < 50;
+        const icon = L.divIcon({
+          className: "custom-marker",
+          html: `<div style="
+            width: 32px; height: 32px; border-radius: 50%;
+            background: ${isLow ? "#ef4444" : "#22c55e"};
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+          ">
+            <span style="color: white; font-size: 12px; font-weight: bold;">${p.id}</span>
+          </div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16],
+          popupAnchor: [0, -20],
+        });
+
+        const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
+        marker.bindPopup(`
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 4px;">
+            <strong>${p.name}</strong><br/>
+            <span style="color: #666;">${p.type} · ${p.surface}</span><br/>
+            <span style="color: ${isLow ? '#ef4444' : '#22c55e'};">💧 ${p.humidity}%</span>
+            &nbsp;
+            <span>🌡 ${p.temp}°C</span>
+          </div>
+        `);
+        marker.on("click", () => setSelected(p.id));
       });
 
-      const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
-      marker.bindPopup(`<b>${p.name}</b><br/>${p.type} · ${p.surface}`);
-      marker.on("click", () => setSelected(p.id));
+      // Multiple invalidateSize calls to ensure proper rendering
+      setTimeout(() => map.invalidateSize(), 0);
+      setTimeout(() => map.invalidateSize(), 200);
+      setTimeout(() => map.invalidateSize(), 500);
     });
+  }, []);
 
+  useEffect(() => {
     return () => {
-      map.remove();
-      mapInstance.current = null;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
     };
   }, []);
 
   return (
     <DashboardLayout>
-      <div className="p-4 mb-2">
-        <h1 className="text-2xl font-bold">Carte des Parcelles</h1>
-        <p className="text-sm text-muted-foreground">Cliquez sur un marqueur pour sélectionner une parcelle</p>
+      <div className="p-4 mb-2 flex items-center gap-3">
+        <MapPin className="w-6 h-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">Carte des Parcelles</h1>
+          <p className="text-sm text-muted-foreground">Cliquez sur un marqueur pour sélectionner une parcelle</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-3 gap-4 px-4 pb-4">
-        <div className="col-span-2 bg-card rounded-2xl border border-border overflow-hidden" style={{ height: 500 }}>
-          <div ref={mapRef} style={{ height: "100%", width: "100%" }} />
+        {/* Map container - no overflow-hidden, no border-radius on map itself */}
+        <div className="col-span-2 rounded-2xl border border-border" style={{ height: 500, position: "relative" }}>
+          <div
+            ref={initMap}
+            style={{
+              height: "100%",
+              width: "100%",
+              borderRadius: "16px",
+              zIndex: 1,
+            }}
+          />
         </div>
 
         <div className="space-y-4">
           {selectedParcelle ? (
-            <div className="bg-card rounded-2xl border border-border p-5">
+            <div className="bg-card rounded-2xl border border-border p-5 animate-in fade-in slide-in-from-right-2">
               <h2 className="text-lg font-bold mb-1">{selectedParcelle.name}</h2>
               <p className="text-xs text-muted-foreground mb-4">{selectedParcelle.type} · {selectedParcelle.surface}</p>
               <div className="space-y-3">
@@ -100,6 +144,7 @@ const MapView = () => {
             </div>
           ) : (
             <div className="bg-card rounded-2xl border border-border p-5 text-center">
+              <MapPin className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-muted-foreground text-sm">Sélectionnez une parcelle sur la carte</p>
             </div>
           )}
@@ -124,7 +169,12 @@ const MapView = () => {
               {parcelles.map((p) => (
                 <button
                   key={p.id}
-                  onClick={() => setSelected(p.id)}
+                  onClick={() => {
+                    setSelected(p.id);
+                    if (mapInstanceRef.current) {
+                      mapInstanceRef.current.setView([p.lat, p.lng], 15, { animate: true });
+                    }
+                  }}
                   className={`w-full text-left p-2.5 rounded-xl text-sm transition-all ${
                     selected === p.id ? "bg-primary text-primary-foreground" : "bg-accent hover:bg-accent/80"
                   }`}
