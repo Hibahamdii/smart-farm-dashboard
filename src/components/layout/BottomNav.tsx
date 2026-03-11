@@ -1,8 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
-  Home, Map, Droplets, BarChart3, Bell, Settings,
-  Sprout, Tractor, Thermometer, MapPinned
+  Home, Map, Droplets, BarChart3, Bell, Settings, MapPinned, LogIn
 } from "lucide-react";
 
 const navItems = [
@@ -13,14 +12,15 @@ const navItems = [
   { path: "/historique", icon: BarChart3, label: "Stats" },
   { path: "/alertes", icon: Bell, label: "Alertes" },
   { path: "/settings", icon: Settings, label: "Config" },
+  { path: "/login", icon: LogIn, label: "Login" },
 ];
 
 const BottomNav = () => {
   const location = useLocation();
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl">
-      <div className="bg-card/95 backdrop-blur-lg rounded-2xl shadow-lg border border-border px-2 py-2 flex items-center justify-between gap-1">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl">
+      <div className="bg-card/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-border/50 px-2 py-2 flex items-center justify-between gap-0.5">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
@@ -29,10 +29,10 @@ const BottomNav = () => {
               key={item.path}
               to={item.path}
               className={cn(
-                "flex flex-col items-center justify-center px-3 py-2 rounded-xl min-w-[56px] transition-all",
+                "flex flex-col items-center justify-center px-3 py-2 rounded-xl min-w-[52px] transition-all duration-200",
                 isActive
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  ? "bg-primary text-primary-foreground shadow-lg glow-primary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}
             >
               <Icon className="w-5 h-5" />
