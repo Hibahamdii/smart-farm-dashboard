@@ -36,6 +36,10 @@
 
     --radius: 16px;
 
+    --card-glow: 142 60% 40%;
+    --card-glass: 0 0% 100% / 0.7;
+    --card-border-gradient: linear-gradient(135deg, hsl(142 60% 40% / 0.2), hsl(210 80% 55% / 0.1), hsl(142 60% 40% / 0.05));
+
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 150 20% 15%;
     --sidebar-primary: 142 60% 40%;
