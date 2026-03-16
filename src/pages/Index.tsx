@@ -461,7 +461,7 @@ const Dashboard = () => {
 
       {/* Quick Irrigation + Alerts + Progress */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Irrigation Rapide</h3>
             <Link to="/irrigation">
