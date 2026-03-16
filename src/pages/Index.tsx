@@ -291,7 +291,7 @@ const Dashboard = () => {
 
       {/* Interactive Map + Weather */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <div className="col-span-2 bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="col-span-2 glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Carte des Parcelles</h3>
             <div className="flex items-center gap-1">
