@@ -428,7 +428,7 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-lines rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Consommation Eau</h3>
             <div className="flex rounded-lg overflow-hidden border border-border">
