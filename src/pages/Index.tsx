@@ -239,7 +239,7 @@ const Dashboard = () => {
           <div className="relative">
             <button
               onClick={() => setShowCountryMenu(!showCountryMenu)}
-              className="flex items-center gap-2 bg-card rounded-xl px-3 py-2 border border-border shadow-sm hover:shadow transition-shadow"
+              className="flex items-center gap-2 glass-card rounded-xl px-3 py-2 hover:shadow-lg transition-shadow"
             >
               <Globe className="w-4 h-4 text-primary" />
               <span className="text-xs font-semibold">{selectedCountry}</span>

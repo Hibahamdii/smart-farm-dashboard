@@ -92,7 +92,7 @@ const Settings = () => {
         </div>
 
         {/* Users */}
-        <div className="bg-card rounded-2xl border border-border p-6 shadow-sm">
+        <div className="glass-card rounded-2xl p-6">
           <h2 className="text-sm font-bold uppercase tracking-widest text-foreground mb-6">Gestion Utilisateurs</h2>
 
           <div className="space-y-3">
