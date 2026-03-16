@@ -526,7 +526,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <h3 className="font-bold text-sm mb-3 text-foreground">Progression Culture</h3>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24 shrink-0">
