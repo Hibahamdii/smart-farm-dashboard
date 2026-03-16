@@ -397,7 +397,7 @@ const Dashboard = () => {
 
       {/* Charts */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-lines rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Évolution Humidité</h3>
             <div className="flex gap-1">
