@@ -225,7 +225,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-card rounded-xl px-3 py-2 border border-border max-w-xs shadow-sm">
+          <div className="flex items-center glass-card rounded-xl px-3 py-2 max-w-xs">
             <Search className="w-4 h-4 text-muted-foreground mr-2" />
             <input
               placeholder="Rechercher..."
@@ -239,7 +239,7 @@ const Dashboard = () => {
           <div className="relative">
             <button
               onClick={() => setShowCountryMenu(!showCountryMenu)}
-              className="flex items-center gap-2 bg-card rounded-xl px-3 py-2 border border-border shadow-sm hover:shadow transition-shadow"
+              className="flex items-center gap-2 glass-card rounded-xl px-3 py-2 hover:shadow-lg transition-shadow"
             >
               <Globe className="w-4 h-4 text-primary" />
               <span className="text-xs font-semibold">{selectedCountry}</span>
@@ -276,7 +276,7 @@ const Dashboard = () => {
         ].map((stat) => {
           const Icon = stat.icon;
           return (
-            <div key={stat.label} className="bg-card rounded-2xl border border-border p-4 card-hover shadow-sm">
+            <div key={stat.label} className="glass-card rounded-2xl p-4 stat-accent">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-muted-foreground font-medium">{stat.label}</span>
                 <div className={`w-8 h-8 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
@@ -291,7 +291,7 @@ const Dashboard = () => {
 
       {/* Interactive Map + Weather */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <div className="col-span-2 bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="col-span-2 glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Carte des Parcelles</h3>
             <div className="flex items-center gap-1">
@@ -346,7 +346,7 @@ const Dashboard = () => {
         </div>
 
         {/* Weather */}
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-bold text-sm text-foreground">Météo — {selectedCountry}</h3>
             <span className="bg-primary/15 text-primary rounded-full px-2.5 py-0.5 text-[10px] font-bold capitalize">
@@ -397,7 +397,7 @@ const Dashboard = () => {
 
       {/* Charts */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Évolution Humidité</h3>
             <div className="flex gap-1">
@@ -428,7 +428,7 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Consommation Eau</h3>
             <div className="flex rounded-lg overflow-hidden border border-border">
@@ -461,7 +461,7 @@ const Dashboard = () => {
 
       {/* Quick Irrigation + Alerts + Progress */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Irrigation Rapide</h3>
             <Link to="/irrigation">
@@ -497,7 +497,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Bell className="w-4 h-4 text-primary" />
@@ -526,7 +526,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <h3 className="font-bold text-sm mb-3 text-foreground">Progression Culture</h3>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24 shrink-0">
@@ -563,7 +563,7 @@ const Dashboard = () => {
         ].map((s) => {
           const SIcon = s.icon;
           return (
-            <div key={s.label} className="bg-card rounded-2xl border border-border p-3 flex items-center gap-3 shadow-sm">
+            <div key={s.label} className="glass-card rounded-2xl p-3 flex items-center gap-3">
               <div className={`w-9 h-9 rounded-lg ${s.bg} flex items-center justify-center`}>
                 <SIcon className={`w-4 h-4 ${s.color}`} />
               </div>
