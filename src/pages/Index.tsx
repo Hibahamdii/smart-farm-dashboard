@@ -497,7 +497,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-topo rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Bell className="w-4 h-4 text-primary" />
