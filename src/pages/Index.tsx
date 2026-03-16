@@ -225,7 +225,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-card rounded-xl px-3 py-2 border border-border max-w-xs shadow-sm">
+          <div className="flex items-center glass-card rounded-xl px-3 py-2 max-w-xs">
             <Search className="w-4 h-4 text-muted-foreground mr-2" />
             <input
               placeholder="Rechercher..."
