@@ -397,7 +397,7 @@ const Dashboard = () => {
 
       {/* Charts */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-lines rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Évolution Humidité</h3>
             <div className="flex gap-1">
@@ -428,7 +428,7 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-lines rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-sm text-foreground">Consommation Eau</h3>
             <div className="flex rounded-lg overflow-hidden border border-border">
@@ -497,7 +497,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-topo rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Bell className="w-4 h-4 text-primary" />
@@ -526,7 +526,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-4">
+        <div className="glass-card-topo rounded-2xl p-4">
           <h3 className="font-bold text-sm mb-3 text-foreground">Progression Culture</h3>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24 shrink-0">
