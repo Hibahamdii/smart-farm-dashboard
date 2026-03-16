@@ -563,7 +563,7 @@ const Dashboard = () => {
         ].map((s) => {
           const SIcon = s.icon;
           return (
-            <div key={s.label} className="bg-card rounded-2xl border border-border p-3 flex items-center gap-3 shadow-sm">
+            <div key={s.label} className="glass-card rounded-2xl p-3 flex items-center gap-3">
               <div className={`w-9 h-9 rounded-lg ${s.bg} flex items-center justify-center`}>
                 <SIcon className={`w-4 h-4 ${s.color}`} />
               </div>
