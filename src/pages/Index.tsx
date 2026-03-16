@@ -346,7 +346,7 @@ const Dashboard = () => {
         </div>
 
         {/* Weather */}
-        <div className="bg-card rounded-2xl border border-border p-4 shadow-sm">
+        <div className="glass-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-bold text-sm text-foreground">Météo — {selectedCountry}</h3>
             <span className="bg-primary/15 text-primary rounded-full px-2.5 py-0.5 text-[10px] font-bold capitalize">
