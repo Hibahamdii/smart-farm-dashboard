@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
+import AddParcelleDialog from "@/components/parcelles/AddParcelleDialog";
 import parcelle1 from "@/assets/parcelle-1.jpg";
 import parcelle2 from "@/assets/parcelle-2.jpg";
 import parcelle3 from "@/assets/parcelle-3.jpg";
@@ -18,9 +19,15 @@ const initialParcelles = [
 
 const Parcelles = () => {
   const [parcelles, setParcelles] = useState(initialParcelles);
+  const [addOpen, setAddOpen] = useState(false);
 
   const handleDelete = (id: number) => {
     setParcelles((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const handleAdd = (data: { name: string; surface: string; type: string; humidity: number; temp: number }) => {
+    const newId = Math.max(...parcelles.map((p) => p.id), 0) + 1;
+    setParcelles((prev) => [...prev, { ...data, id: newId }]);
   };
 
   return (
@@ -30,8 +37,10 @@ const Parcelles = () => {
           <h1 className="font-data text-2xl font-bold tracking-wide uppercase">Parcelles</h1>
           <p className="font-ui text-sm text-muted-foreground mt-1">Gestion des terres agricoles</p>
         </div>
-        <Button variant="default">+ Ajouter Parcelle</Button>
+        <Button variant="default" onClick={() => setAddOpen(true)}>+ Ajouter Parcelle</Button>
       </div>
+
+      <AddParcelleDialog open={addOpen} onOpenChange={setAddOpen} onAdd={handleAdd} />
 
       {/* Parcelle Cards as aerial grid */}
       <div className="grid grid-cols-2">

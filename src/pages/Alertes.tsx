@@ -1,5 +1,8 @@
+import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { cn } from "@/lib/utils";
+import { Bot } from "lucide-react";
+import AlertAIChatDialog from "@/components/alertes/AlertAIChatDialog";
 
 const alertsData = [
   { date: "10/03/2026 14:23", parcelle: "Parcelle 2", type: "warning", message: "Humidité faible — 38%" },
@@ -13,6 +16,8 @@ const alertsData = [
 ];
 
 const Alertes = () => {
+  const [chatAlert, setChatAlert] = useState<typeof alertsData[0] | null>(null);
+
   return (
     <DashboardLayout>
       <div className="border-b-grid border-border p-6">
@@ -27,6 +32,7 @@ const Alertes = () => {
             <th className="text-left font-data text-xs uppercase tracking-widest p-4 text-muted-foreground">Parcelle</th>
             <th className="text-left font-data text-xs uppercase tracking-widest p-4 text-muted-foreground">Type</th>
             <th className="text-left font-data text-xs uppercase tracking-widest p-4 text-muted-foreground">Message</th>
+            <th className="text-center font-data text-xs uppercase tracking-widest p-4 text-muted-foreground">IA</th>
           </tr>
         </thead>
         <tbody>
@@ -45,10 +51,29 @@ const Alertes = () => {
                 </span>
               </td>
               <td className="font-ui text-sm p-4">{a.message}</td>
+              <td className="p-4 text-center">
+                <button
+                  onClick={() => setChatAlert(a)}
+                  className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                  title="Demander conseil à l'IA"
+                >
+                  <Bot className="w-4 h-4" />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {chatAlert && (
+        <AlertAIChatDialog
+          open={!!chatAlert}
+          onOpenChange={(open) => !open && setChatAlert(null)}
+          alertMessage={chatAlert.message}
+          parcelle={chatAlert.parcelle}
+          type={chatAlert.type}
+        />
+      )}
     </DashboardLayout>
   );
 };
