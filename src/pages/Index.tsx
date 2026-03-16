@@ -276,7 +276,7 @@ const Dashboard = () => {
         ].map((stat) => {
           const Icon = stat.icon;
           return (
-            <div key={stat.label} className="bg-card rounded-2xl border border-border p-4 card-hover shadow-sm">
+            <div key={stat.label} className="glass-card rounded-2xl p-4 stat-accent">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-muted-foreground font-medium">{stat.label}</span>
                 <div className={`w-8 h-8 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
