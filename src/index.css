@@ -79,7 +79,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Glass card base — Grain Mesh */
+/* Glass card base — Flowing Lines */
 .glass-card {
   background: hsl(0 0% 100% / 0.96);
   border: 1px solid hsl(142 60% 40% / 0.12);
@@ -95,23 +95,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(ellipse 120% 80% at 100% 0%, hsl(142 60% 40% / 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 120% at 0% 100%, hsl(210 80% 55% / 0.04) 0%, transparent 50%);
+  background:
+    url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 80 Q50 40 100 80 T200 80 T300 80 T400 80' fill='none' stroke='%2316a34a' stroke-width='0.8' opacity='0.07'/%3E%3Cpath d='M0 120 Q60 70 120 120 T240 120 T360 120' fill='none' stroke='%2316a34a' stroke-width='0.6' opacity='0.06'/%3E%3Cpath d='M0 160 Q40 130 100 155 T200 165 T300 150 T400 160' fill='none' stroke='%2316a34a' stroke-width='0.7' opacity='0.05'/%3E%3Cpath d='M0 200 Q70 170 140 200 T280 200 T400 195' fill='none' stroke='%2316a34a' stroke-width='0.5' opacity='0.05'/%3E%3Cpath d='M0 240 Q55 210 110 240 T220 240 T330 235 T400 240' fill='none' stroke='%2316a34a' stroke-width='0.6' opacity='0.04'/%3E%3Cpath d='M0 280 Q45 260 100 285 T200 275 T300 285 T400 280' fill='none' stroke='%2316a34a' stroke-width='0.5' opacity='0.04'/%3E%3Cpath d='M0 320 Q65 290 130 320 T260 315 T400 320' fill='none' stroke='%2316a34a' stroke-width='0.4' opacity='0.03'/%3E%3C/svg%3E") repeat;
   pointer-events: none;
-  z-index: 0;
-}
-
-.glass-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, hsl(142 60% 40% / 0.4), hsl(210 80% 55% / 0.2), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
   z-index: 0;
 }
 
@@ -126,10 +112,6 @@
   box-shadow: 
     0 12px 40px -8px hsl(142 60% 40% / 0.14),
     0 4px 12px hsl(0 0% 0% / 0.04);
-}
-
-.glass-card:hover::after {
-  opacity: 1;
 }
 
 /* Diagonal lines pattern variant */

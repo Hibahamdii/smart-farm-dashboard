@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin } from "lucide-react";
+import { MapPin, ImagePlus, X } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -19,6 +19,7 @@ interface AddParcelleDialogProps {
     temp: number;
     lat: number;
     lng: number;
+    image?: string;
   }) => void;
 }
 
@@ -27,9 +28,20 @@ const AddParcelleDialog = ({ open, onOpenChange, onAdd }: AddParcelleDialogProps
   const [surface, setSurface] = useState("");
   const [type, setType] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => setImagePreview(ev.target?.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
 
   const initMap = useCallback(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
@@ -92,12 +104,13 @@ const AddParcelleDialog = ({ open, onOpenChange, onAdd }: AddParcelleDialogProps
       temp: Math.floor(Math.random() * 10) + 28,
       lat: selectedLocation.lat,
       lng: selectedLocation.lng,
+      image: imagePreview || undefined,
     });
-    // Reset
     setName("");
     setSurface("");
     setType("");
     setSelectedLocation(null);
+    setImagePreview(null);
     onOpenChange(false);
   };
 
@@ -112,16 +125,12 @@ const AddParcelleDialog = ({ open, onOpenChange, onAdd }: AddParcelleDialogProps
         </DialogHeader>
 
         <div className="space-y-4 mt-2">
-          {/* Map for location picking */}
+          {/* Map */}
           <div>
             <Label className="text-sm font-ui text-muted-foreground mb-2 block">
               Cliquez sur la carte pour choisir l'emplacement
             </Label>
-            <div
-              ref={mapRef}
-              className="w-full rounded-xl border border-border overflow-hidden"
-              style={{ height: 280 }}
-            />
+            <div ref={mapRef} className="w-full rounded-xl border border-border overflow-hidden" style={{ height: 280 }} />
             {selectedLocation && (
               <p className="text-xs text-primary mt-1.5 font-data">
                 📍 {selectedLocation.lat.toFixed(4)}, {selectedLocation.lng.toFixed(4)}
@@ -129,28 +138,46 @@ const AddParcelleDialog = ({ open, onOpenChange, onAdd }: AddParcelleDialogProps
             )}
           </div>
 
-          {/* Form fields */}
+          {/* Image upload */}
+          <div>
+            <Label className="text-sm font-ui text-muted-foreground mb-2 block">Photo de la parcelle</Label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+            {imagePreview ? (
+              <div className="relative rounded-xl overflow-hidden border border-border">
+                <img src={imagePreview} alt="Preview" className="w-full h-40 object-cover" />
+                <button
+                  onClick={() => { setImagePreview(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                  className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full h-32 rounded-xl border-2 border-dashed border-border hover:border-primary/40 bg-accent/30 flex flex-col items-center justify-center gap-2 transition-colors"
+              >
+                <ImagePlus className="w-8 h-8 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">Cliquer pour ajouter une photo</span>
+              </button>
+            )}
+          </div>
+
+          {/* Form */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label htmlFor="name" className="text-sm font-ui">Nom</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ex: Parcelle Sud"
-                className="mt-1"
-              />
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex: Parcelle Sud" className="mt-1" />
             </div>
             <div>
               <Label htmlFor="surface" className="text-sm font-ui">Surface (ha)</Label>
-              <Input
-                id="surface"
-                value={surface}
-                onChange={(e) => setSurface(e.target.value)}
-                placeholder="Ex: 3.5"
-                type="number"
-                className="mt-1"
-              />
+              <Input id="surface" value={surface} onChange={(e) => setSurface(e.target.value)} placeholder="Ex: 3.5" type="number" className="mt-1" />
             </div>
           </div>
 
@@ -171,11 +198,7 @@ const AddParcelleDialog = ({ open, onOpenChange, onAdd }: AddParcelleDialogProps
             </Select>
           </div>
 
-          <Button
-            onClick={handleSubmit}
-            className="w-full"
-            disabled={!name || !surface || !type || !selectedLocation}
-          >
+          <Button onClick={handleSubmit} className="w-full" disabled={!name || !surface || !type || !selectedLocation}>
             Ajouter la Parcelle
           </Button>
         </div>

@@ -1,13 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
-  Home, Map, Droplets, BarChart3, Bell, Settings, LogIn
+  Home, Map, Droplets, BarChart3, Bell, Settings, LogIn, CloudSun
 } from "lucide-react";
 
 const navItems = [
   { path: "/", icon: Home, label: "Accueil" },
   { path: "/parcelles", icon: Map, label: "Parcelles" },
   { path: "/irrigation", icon: Droplets, label: "Irrigation" },
+  { path: "/meteo", icon: CloudSun, label: "Météo" },
   { path: "/historique", icon: BarChart3, label: "Stats" },
   { path: "/alertes", icon: Bell, label: "Alertes" },
   { path: "/settings", icon: Settings, label: "Config" },
