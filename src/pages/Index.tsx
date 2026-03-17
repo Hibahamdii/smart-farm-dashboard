@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import L from "leaflet";
+import weatherBg from "@/assets/weather-bg.jpg";
 import "leaflet/dist/leaflet.css";
 import {
   Search, MapPin, Droplets, Wind, Gauge, Sun, Cloud, CloudRain, CloudSun,
