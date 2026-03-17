@@ -12,6 +12,7 @@ import Alertes from "./pages/Alertes.tsx";
 import Settings from "./pages/Settings.tsx";
 import MapView from "./pages/MapView.tsx";
 import Login from "./pages/Login.tsx";
+import Meteo from "./pages/Meteo.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
