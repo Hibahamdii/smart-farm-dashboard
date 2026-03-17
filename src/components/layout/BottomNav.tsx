@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
-  Home, Map, Droplets, BarChart3, Bell, Settings, LogIn
+  Home, Map, Droplets, BarChart3, Bell, Settings, LogIn, CloudSun
 } from "lucide-react";
 
 const navItems = [
