@@ -33,6 +33,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/carte" element={<MapView />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/meteo" element={<Meteo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

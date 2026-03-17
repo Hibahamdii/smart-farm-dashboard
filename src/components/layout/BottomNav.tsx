@@ -8,6 +8,7 @@ const navItems = [
   { path: "/", icon: Home, label: "Accueil" },
   { path: "/parcelles", icon: Map, label: "Parcelles" },
   { path: "/irrigation", icon: Droplets, label: "Irrigation" },
+  { path: "/meteo", icon: CloudSun, label: "Météo" },
   { path: "/historique", icon: BarChart3, label: "Stats" },
   { path: "/alertes", icon: Bell, label: "Alertes" },
   { path: "/settings", icon: Settings, label: "Config" },

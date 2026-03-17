@@ -347,13 +347,13 @@ const Dashboard = () => {
         </div>
 
         {/* Weather */}
-        <div className="rounded-2xl overflow-hidden relative" style={{ minHeight: 360 }}>
-          {/* Background image */}
-          <img src={weatherBg} alt="Weather background" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
+        <Link to="/meteo" className="block rounded-2xl overflow-hidden relative group" style={{ minHeight: 360 }}>
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
+            <source src="https://cdn.pixabay.com/video/2020/05/25/39609-424930080_large.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 group-hover:from-black/15 group-hover:via-black/35 group-hover:to-black/65 transition-all" />
           
-          {/* Content */}
-          <div className="relative z-10 p-5 h-full flex flex-col justify-between">
+          <div className="relative z-10 p-5 h-full flex flex-col justify-between" style={{ minHeight: 360 }}>
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-sm text-white/90">Météo — {selectedCountry}</h3>
@@ -369,7 +369,7 @@ const Dashboard = () => {
                   </div>
                   <p className="text-xs text-white/60 mt-1">H: {countryInfo.temp + 8}° · L: {countryInfo.temp - 6}°</p>
                 </div>
-                <Sun className="w-14 h-14 text-amber-300 drop-shadow-lg" />
+                <Sun className="w-14 h-14 text-warning drop-shadow-lg" />
               </div>
             </div>
             
@@ -403,9 +403,10 @@ const Dashboard = () => {
                   );
                 })}
               </div>
+              <p className="text-[10px] text-white/40 text-center mt-2 group-hover:text-white/60 transition-colors">Cliquer pour voir plus →</p>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Charts */}
