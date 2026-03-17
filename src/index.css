@@ -79,13 +79,13 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Glass card base — Waves */
+/* Glass card base — Grain Mesh */
 .glass-card {
-  background: hsl(0 0% 100% / 0.94);
-  border: 1px solid hsl(142 60% 40% / 0.15);
+  background: hsl(0 0% 100% / 0.96);
+  border: 1px solid hsl(142 60% 40% / 0.12);
   box-shadow: 
-    0 4px 24px -4px hsl(142 60% 40% / 0.1),
-    0 1px 3px hsl(0 0% 0% / 0.04);
+    0 4px 24px -4px hsl(142 60% 40% / 0.08),
+    0 1px 3px hsl(0 0% 0% / 0.03);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;
@@ -94,13 +94,24 @@
 .glass-card::before {
   content: '';
   position: absolute;
-  bottom: -10px;
-  left: -20px;
-  right: -20px;
-  height: 120px;
-  background:
-    url("data:image/svg+xml,%3Csvg width='600' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60 Q75 20 150 60 T300 60 T450 60 T600 60' fill='none' stroke='%2316a34a' stroke-width='1.5' opacity='0.12'/%3E%3Cpath d='M0 75 Q75 35 150 75 T300 75 T450 75 T600 75' fill='none' stroke='%2316a34a' stroke-width='1.2' opacity='0.09'/%3E%3Cpath d='M0 90 Q75 55 150 90 T300 90 T450 90 T600 90' fill='none' stroke='%2316a34a' stroke-width='1' opacity='0.07'/%3E%3Cpath d='M0 105 Q75 70 150 105 T300 105 T450 105 T600 105' fill='none' stroke='%2316a34a' stroke-width='0.8' opacity='0.05'/%3E%3C/svg%3E") repeat-x;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 120% 80% at 100% 0%, hsl(142 60% 40% / 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 120% at 0% 100%, hsl(210 80% 55% / 0.04) 0%, transparent 50%);
   pointer-events: none;
+  z-index: 0;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(142 60% 40% / 0.4), hsl(210 80% 55% / 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
   z-index: 0;
 }
 
@@ -110,11 +121,15 @@
 }
 
 .glass-card:hover {
-  transform: translateY(-3px);
-  border-color: hsl(142 60% 40% / 0.25);
+  transform: translateY(-2px);
+  border-color: hsl(142 60% 40% / 0.22);
   box-shadow: 
-    0 14px 44px -8px hsl(142 60% 40% / 0.16),
-    0 4px 12px hsl(0 0% 0% / 0.05);
+    0 12px 40px -8px hsl(142 60% 40% / 0.14),
+    0 4px 12px hsl(0 0% 0% / 0.04);
+}
+
+.glass-card:hover::after {
+  opacity: 1;
 }
 
 /* Diagonal lines pattern variant */

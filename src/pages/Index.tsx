@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import L from "leaflet";
+import weatherBg from "@/assets/weather-bg.jpg";
 import "leaflet/dist/leaflet.css";
 import {
   Search, MapPin, Droplets, Wind, Gauge, Sun, Cloud, CloudRain, CloudSun,
@@ -346,51 +347,63 @@ const Dashboard = () => {
         </div>
 
         {/* Weather */}
-        <div className="glass-card rounded-2xl p-4">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-bold text-sm text-foreground">Météo — {selectedCountry}</h3>
-            <span className="bg-primary/15 text-primary rounded-full px-2.5 py-0.5 text-[10px] font-bold capitalize">
-              {dayName}
-            </span>
-          </div>
-          <div className="flex items-start gap-3 mb-3">
+        <div className="rounded-2xl overflow-hidden relative" style={{ minHeight: 360 }}>
+          {/* Background image */}
+          <img src={weatherBg} alt="Weather background" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
+          
+          {/* Content */}
+          <div className="relative z-10 p-5 h-full flex flex-col justify-between">
             <div>
-              <div className="flex items-baseline">
-                <span className="text-4xl font-extrabold text-primary">{countryInfo.temp}</span>
-                <span className="text-lg text-primary">°</span>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-sm text-white/90">Météo — {selectedCountry}</h3>
+                <span className="bg-white/20 backdrop-blur-sm text-white rounded-full px-2.5 py-0.5 text-[10px] font-bold capitalize">
+                  {dayName}
+                </span>
               </div>
-              <p className="text-xs text-muted-foreground">H: {countryInfo.temp + 8}° · L: {countryInfo.temp - 6}°</p>
+              <div className="flex items-start gap-3 mb-5">
+                <div>
+                  <div className="flex items-baseline">
+                    <span className="text-5xl font-extrabold text-white drop-shadow-lg">{countryInfo.temp}</span>
+                    <span className="text-2xl text-white/80">°C</span>
+                  </div>
+                  <p className="text-xs text-white/60 mt-1">H: {countryInfo.temp + 8}° · L: {countryInfo.temp - 6}°</p>
+                </div>
+                <Sun className="w-14 h-14 text-amber-300 drop-shadow-lg" />
+              </div>
             </div>
-            <Sun className="w-12 h-12 text-warning" />
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {[
-              { icon: Droplets, label: "Humidité", val: `${countryInfo.humidity}%` },
-              { icon: Wind, label: "Vent", val: countryInfo.wind },
-              { icon: Gauge, label: "Pression", val: countryInfo.pressure },
-              { icon: Eye, label: "Visibilité", val: countryInfo.visibility },
-            ].map((w) => {
-              const WIcon = w.icon;
-              return (
-                <div key={w.label} className="bg-accent/50 rounded-lg p-2 text-center">
-                  <WIcon className="w-3.5 h-3.5 mx-auto text-primary mb-0.5" />
-                  <p className="text-[10px] text-muted-foreground">{w.label}</p>
-                  <p className="text-xs font-bold text-foreground">{w.val}</p>
-                </div>
-              );
-            })}
-          </div>
-          <div className="grid grid-cols-6 gap-1">
-            {forecast.map((f) => {
-              const FIcon = f.icon;
-              return (
-                <div key={f.day} className="text-center bg-accent/30 rounded-lg p-1.5">
-                  <p className="text-[9px] font-bold text-muted-foreground">{f.day}</p>
-                  <FIcon className="w-3 h-3 mx-auto my-0.5 text-muted-foreground" />
-                  <p className="text-xs font-bold text-foreground">{f.temp}°</p>
-                </div>
-              );
-            })}
+            
+            <div>
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                {[
+                  { icon: Droplets, label: "Humidité", val: `${countryInfo.humidity}%` },
+                  { icon: Wind, label: "Vent", val: countryInfo.wind },
+                  { icon: Gauge, label: "Pression", val: countryInfo.pressure },
+                  { icon: Eye, label: "Visibilité", val: countryInfo.visibility },
+                ].map((w) => {
+                  const WIcon = w.icon;
+                  return (
+                    <div key={w.label} className="bg-white/10 backdrop-blur-md rounded-xl p-2.5 text-center border border-white/10">
+                      <WIcon className="w-3.5 h-3.5 mx-auto text-white/70 mb-0.5" />
+                      <p className="text-[10px] text-white/50">{w.label}</p>
+                      <p className="text-xs font-bold text-white">{w.val}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="grid grid-cols-6 gap-1">
+                {forecast.map((f) => {
+                  const FIcon = f.icon;
+                  return (
+                    <div key={f.day} className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-1.5 border border-white/5">
+                      <p className="text-[9px] font-bold text-white/50">{f.day}</p>
+                      <FIcon className="w-3 h-3 mx-auto my-0.5 text-white/60" />
+                      <p className="text-xs font-bold text-white">{f.temp}°</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
